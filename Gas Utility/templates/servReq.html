@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" action="/servReq/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br><br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Name"><br><br>
+    <label for="mobno">Phone Number:</label>
+    <input type="text" id="mobno" name="mobno" placeholder="Phone Number"><br><br>
+    <label for="reqtype">Request Type:</label>
+    <select id="reqType" name="reqType">
+        <option value="type1">Request Type 1</option>
+        <option value="type2">Request Type 2</option>
+        <option value="type3">Request Type 3</option>
+        <option value="type4">Request Type 4</option>
+        <option value="type5">Other</option>
+      </select><br><br>
+    <label for="desc">Description:</label>
+    <input type="text" id="desc" name="desc" placeholder="Description"><br><br>
+    <label for="file">Attachment:</label>
+    <input type="file" id="file" name="file"><br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<div>
+  {% if messages %}
+      <dialog open>
+          {% for message in messages %}
+              <p>{{ message }}</p>
+          {% endfor %}
+      </dialog>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+<h1 align="center">Manage Request for Representatives</h1>
+<form method="post" action="/manageReq/" align="center">
+    {% csrf_token %}
+    <label for="reqType">Request ID:</label>
+    <input type="text" name="reqId" placeholder="Request ID">
+    <label for="newStatus">New Status:</label>
+    <input type="text" name="newStatus" placeholder="Updated Status">
+    <button type="submit">Update Status</button>
+</form>
+<table style="border: 1px solid black; border-collapse: collapse;" align="center">
+    <tr>
+        <th style="border: 1px solid black; border-collapse: collapse;">Request ID</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Name</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Phone Number</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Request Type</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Description</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Date Added</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">Status</th>
+        <th style="border: 1px solid black; border-collapse: collapse;">File</th>
+      </tr>
+      {% for data in dataList %}
+        <tr>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.pk }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.name }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.mobno }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.reqType }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.desc }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.dateTimeAdded }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse;">{{ data.status }}</td>
+            {%if data.fileExists %}
+            <td style="border: 1px solid black; border-collapse: collapse;"><a href="/download/{{data.pk}}">Download</a></td>
+            {% else %}
+            <td style="border: 1px solid black; border-collapse: collapse;">No File</td>
+            {% endif %}
+        </tr>
+      {% endfor %}
+</table>

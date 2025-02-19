@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" action="/reqTrack/">
+    {% csrf_token %}
+    <br><br>
+    <label for="reqId">Request Tracking ID:</label>
+    <input type="number" id="reqId" name="reqId" placeholder="Request ID" required><br><br>
+    <button type="submit">Submit</button>
+</form>
+<br><br>
+{% if error %}
+    <p>{{error}}</p>
+{% endif %}
+{% if data %}
+<p>Name: {{data.name}}</p>
+<p>Phone Number: {{data.mobno}}</p>
+<p>Request Type: {{data.reqType}}</p>
+<p>Description: {{data.desc}}</p>
+<p>Date Added: {{data.dateTimeAdded}}</p>
+<p>Status: {{data.status}}</p>
+{% if fileExists %}
+<p>File: <a href="/download/{{data.pk}}">Download</a></p>
+{% endif %}
+{% if data.status == "Resolved" %}
+<p>Date Resolved: {{data.dateTimeResolved}}</p>
+{% endif %}
+{% endif %}
+{% endblock content %}
